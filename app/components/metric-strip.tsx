@@ -30,7 +30,7 @@ export function MetricStrip({
                 {metric.value}
               </p>
               <div className="my-4 h-px w-full bg-norma-rule" />
-              <p className="text-[8px] font-semibold uppercase tracking-[0.16em] text-norma-muted">
+              <p className="text-[10px] md:text-[8px] font-semibold uppercase tracking-[0.16em] text-norma-muted">
                 {metric.label}
               </p>
             </div>
@@ -45,10 +45,10 @@ export function MetricStrip({
       <div className="mx-auto grid max-w-[1280px] grid-cols-1 gap-12 px-6 py-[clamp(72px,8vw,104px)] text-center md:grid-cols-3 md:gap-10 md:px-[5vw]">
         {metrics.map((metric) => (
           <div key={metric.label}>
-            <p className="font-editorial text-[clamp(4.7rem,6vw,6.25rem)] leading-[0.8] tracking-[-0.05em]">
+            <p className="font-editorial text-[clamp(3.5rem,6vw,6.25rem)] leading-[0.8] tracking-[-0.05em]">
               {metric.value}
             </p>
-            <p className="mt-6 text-[11px] font-semibold uppercase tracking-[0.14em] text-norma-muted">
+            <p className="mt-6 text-[12px] md:text-[11px] font-semibold uppercase tracking-[0.14em] text-norma-muted">
               {metric.label}
             </p>
           </div>

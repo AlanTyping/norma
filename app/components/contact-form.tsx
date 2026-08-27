@@ -82,14 +82,14 @@ export function ContactForm() {
           <strong className="text-norma-ink">{values.projectType}</strong>. Nuestro equipo se pondrá en contacto a{" "}
           <strong className="text-norma-ink">{values.email}</strong> en las próximas 24 horas hábiles.
         </p>
-        <div className="mt-6 inline-flex items-center gap-2 rounded-sm bg-norma-soft px-3.5 py-2 text-[11px] text-norma-muted">
+        <div className="mt-6 inline-flex items-center gap-2 rounded-sm bg-norma-soft px-3.5 py-2 text-[12px] md:text-[11px] text-norma-muted">
           <span>✓</span>
           <span>Demostración de flujo completada exitosamente</span>
         </div>
         <div className="mt-8">
           <button
             type="button"
-            className="norma-link norma-focus text-[11px] font-semibold uppercase tracking-[0.14em]"
+            className="norma-link norma-focus text-[12px] md:text-[11px] font-semibold uppercase tracking-[0.14em]"
             onClick={() => {
               setValues(initialValues);
               setErrors({});
@@ -108,7 +108,7 @@ export function ContactForm() {
     <form className="max-w-[650px]" onSubmit={handleSubmit} noValidate>
       {/* Project Type Chips */}
       <div className="mb-8">
-        <label className="block text-[11px] font-bold tracking-[0.16em] uppercase text-norma-ink">
+        <label className="block text-[12px] md:text-[11px] font-bold tracking-[0.16em] uppercase text-norma-ink">
           Tipo de Proyecto
         </label>
         <div className="mt-3 flex flex-wrap gap-2">
@@ -119,7 +119,7 @@ export function ContactForm() {
                 key={type}
                 type="button"
                 onClick={() => updateField("projectType", type)}
-                className={`norma-focus border px-3.5 py-1.5 text-[11px] font-medium transition-colors ${
+                className={`norma-focus border px-3.5 py-1.5 text-[12px] md:text-[11px] font-medium transition-colors ${
                   selected
                     ? "border-norma-ink bg-norma-ink text-white"
                     : "border-norma-rule bg-transparent text-norma-muted hover:border-norma-ink hover:text-norma-ink"
@@ -147,7 +147,7 @@ export function ContactForm() {
             htmlFor={input.field}
             className="mt-8 block border-b border-norma-field pb-3 first:mt-0"
           >
-            <span className="block text-[11px] font-bold tracking-[0.16em]">
+            <span className="block text-[12px] md:text-[11px] font-bold tracking-[0.16em]">
               {input.label}
             </span>
             <input
@@ -165,7 +165,7 @@ export function ContactForm() {
               onBlur={() => handleBlur(input.field)}
             />
             {error ? (
-              <span id={errorId} className="mt-2 block text-[11px] text-red-800">
+              <span id={errorId} className="mt-2 block text-[12px] md:text-[11px] text-red-800">
                 {error}
               </span>
             ) : null}
@@ -174,7 +174,7 @@ export function ContactForm() {
       })}
 
       <label htmlFor="message" className="mt-8 block border-b border-norma-field pb-3">
-        <span className="block text-[11px] font-bold tracking-[0.16em]">MENSAJE</span>
+        <span className="block text-[12px] md:text-[11px] font-bold tracking-[0.16em]">MENSAJE</span>
         <textarea
           id="message"
           name="message"
@@ -184,12 +184,12 @@ export function ContactForm() {
           rows={3}
           aria-invalid={Boolean(touched.message && errors.message)}
           aria-describedby={touched.message && errors.message ? "message-error" : undefined}
-          className="norma-field norma-focus mt-2 min-h-[90px] w-full resize-none border-0 bg-transparent p-0 text-[18px] outline-hidden"
+          className="norma-field norma-focus mt-2 min-h-[90px] w-full resize-y border-0 bg-transparent p-0 text-[18px] outline-hidden"
           onChange={(event) => updateField("message", event.target.value)}
           onBlur={() => handleBlur("message")}
         />
         {touched.message && errors.message ? (
-          <span id="message-error" className="mt-2 block text-[11px] text-red-800">
+          <span id="message-error" className="mt-2 block text-[12px] md:text-[11px] text-red-800">
             {errors.message}
           </span>
         ) : null}
@@ -199,11 +199,11 @@ export function ContactForm() {
         <button
           type="submit"
           disabled={status === "submitting"}
-          className="norma-focus bg-norma-ink px-8 py-4 text-[11px] font-bold uppercase tracking-[0.13em] text-white transition-colors duration-200 hover:bg-norma-muted disabled:cursor-wait disabled:opacity-60"
+          className="norma-focus bg-norma-ink px-8 py-4 text-[12px] md:text-[11px] font-bold uppercase tracking-[0.13em] text-white transition-all duration-200 hover:bg-norma-muted active:scale-[0.98] disabled:cursor-wait disabled:opacity-60"
         >
           {status === "submitting" ? "Enviando..." : "Enviar mensaje"}
         </button>
-        <span className="text-[11px] text-norma-muted">
+        <span className="text-[12px] md:text-[11px] text-norma-muted">
           Respuesta habitual en &lt; 24hs
         </span>
       </div>
