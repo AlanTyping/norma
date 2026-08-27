@@ -69,8 +69,9 @@ export default async function ProjectDetailPage({ params }: Props) {
       <main>
         <ProjectHero
           project={project}
-          metaLayout={slug === "estudio-24" ? "rows" : "grid"}
+          metaLayout={slug === "casa-olivos" ? "grid" : "2x2"}
           metaPlacement={slug === "casa-olivos" ? "below" : "overlay"}
+          metaPosition={slug === "casa-olivos" ? "side" : "top"}
           objectPosition="center"
         />
 

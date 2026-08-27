@@ -9,6 +9,7 @@ type ProjectCardProps = {
   image?: SiteImage;
   imageAspectClassName?: string;
   detail?: string;
+  infoPosition?: "top" | "bottom";
 };
 
 const aspectClasses = {
@@ -23,6 +24,7 @@ export function ProjectCard({
   image,
   imageAspectClassName,
   detail,
+  infoPosition = "bottom",
 }: ProjectCardProps) {
   const projectImage = image ?? project.image;
   const projectHref = `/proyectos/${project.slug}`;
@@ -30,16 +32,27 @@ export function ProjectCard({
 
 
   return (
-    <figure className={`m-0 min-w-0 ${className}`}>
+    <figure className={`m-0 min-w-0 w-full ${className}`}>
       <Link
         href={projectHref}
         aria-label={projectLabel}
-        className="norma-image-link norma-focus group block"
+        className="norma-image-link norma-focus group flex flex-col w-full"
       >
+        {infoPosition === "top" && (
+          <figcaption className="mb-4 w-full text-left order-1">
+            <h2 className="font-editorial text-[22px] leading-[1.04] tracking-[-0.025em] md:text-[25px] text-balance">
+              {project.title}
+            </h2>
+            <p className="mt-1 text-[11px] leading-[1.3] text-norma-muted md:text-[12px] text-pretty">
+              {detail ?? project.location}
+            </p>
+          </figcaption>
+        )}
+        
         <div
           className={`relative w-full overflow-hidden bg-norma-soft ${
-            imageAspectClassName ?? aspectClasses[project.aspect]
-          }`}
+            infoPosition === "top" ? "order-2" : "order-1"
+          } ${imageAspectClassName ?? aspectClasses[project.aspect]}`}
         >
           <ResponsiveImage
             image={projectImage}
@@ -50,14 +63,17 @@ export function ProjectCard({
             }
           />
         </div>
-        <figcaption className="mt-4">
-          <h2 className="font-editorial text-[22px] leading-[1.04] tracking-[-0.025em] md:text-[25px]">
-            {project.title}
-          </h2>
-          <p className="mt-1 text-[11px] leading-[1.2] text-norma-muted md:text-[12px]">
-            {detail ?? project.location}
-          </p>
-        </figcaption>
+        
+        {infoPosition === "bottom" && (
+          <figcaption className="mt-4 w-full text-left order-2">
+            <h2 className="font-editorial text-[22px] leading-[1.04] tracking-[-0.025em] md:text-[25px] text-balance">
+              {project.title}
+            </h2>
+            <p className="mt-1 text-[11px] leading-[1.3] text-norma-muted md:text-[12px] text-pretty">
+              {detail ?? project.location}
+            </p>
+          </figcaption>
+        )}
       </Link>
     </figure>
   );

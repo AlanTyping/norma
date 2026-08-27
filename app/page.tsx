@@ -75,22 +75,23 @@ export default function Home() {
             <ProjectCard
               project={casaOlivos}
               image={images.featuredHouse}
-              imageAspectClassName="aspect-[2.86]"
+              imageAspectClassName="aspect-[16/7] md:aspect-[21/9]"
               detail="Residencial, 280 m², 2026"
             />
-            <div className="mt-24 grid items-end gap-16 md:grid-cols-[minmax(0,0.88fr)_minmax(0,1fr)] md:gap-20">
+            <div className="mt-24 grid gap-16 md:items-end md:grid-cols-[minmax(0,0.88fr)_minmax(0,1fr)] md:gap-20">
               <ProjectCard
                 project={casaDelta}
                 image={images.staircase}
-                imageAspectClassName="aspect-[0.8]"
+                imageAspectClassName="aspect-[4/5]"
                 detail="Residencial, 215 m², 2025"
               />
               <ProjectCard
                 project={estudio24}
                 image={images.studioInterior}
-                imageAspectClassName="aspect-[1.35]"
+                imageAspectClassName="aspect-[4/3]"
                 className="md:mb-12"
                 detail="Comercial, 180 m², 2025"
+                infoPosition="top"
               />
             </div>
           </div>
