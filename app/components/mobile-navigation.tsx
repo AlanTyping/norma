@@ -30,40 +30,57 @@ export function MobileNavigation({
       if (event.key === "Escape") setOpen(false);
     };
 
+    document.body.style.overflow = "hidden";
     document.addEventListener("keydown", closeOnEscape);
-    return () => document.removeEventListener("keydown", closeOnEscape);
+    return () => {
+      document.body.style.overflow = "";
+      document.removeEventListener("keydown", closeOnEscape);
+    };
   }, [open]);
 
   return (
     <div className="md:hidden">
       <button
         type="button"
-        className="norma-focus text-[10px] font-semibold uppercase tracking-[0.16em] text-black"
+        className="norma-focus flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.16em] text-black"
         aria-expanded={open}
         aria-controls="norma-mobile-menu"
         onClick={() => setOpen((current) => !current)}
       >
-        {open ? "Cerrar" : "Menú"}
+        <span>{open ? "Cerrar" : "Menú"}</span>
+        <span className="text-[13px] leading-none" aria-hidden="true">
+          {open ? "✕" : "☰"}
+        </span>
       </button>
+
+      {/* Backdrop */}
+      {open ? (
+        <div
+          aria-hidden="true"
+          className="fixed inset-0 top-[78px] z-20 bg-black/40 backdrop-blur-xs transition-opacity duration-300"
+          onClick={() => setOpen(false)}
+        />
+      ) : null}
+
       <div
         id="norma-mobile-menu"
-        className={`absolute inset-x-0 top-full z-20 border-b border-norma-rule bg-white px-6 py-6 transition-[visibility,opacity,transform] duration-200 ${
+        className={`absolute inset-x-0 top-full z-30 border-b border-norma-rule bg-white/98 px-6 py-8 shadow-xl backdrop-blur-md transition-all duration-300 ease-out ${
           open
             ? "visible translate-y-0 opacity-100"
-            : "invisible -translate-y-2 opacity-0"
+            : "invisible -translate-y-3 opacity-0 pointer-events-none"
         }`}
         aria-hidden={!open}
       >
         <nav
           aria-label="Navegación móvil"
-          className="grid gap-5 text-[12px] font-semibold uppercase tracking-[0.16em] text-black/70"
+          className="grid gap-6 text-[13px] font-semibold uppercase tracking-[0.16em] text-black/80"
         >
           {links.map((link) => (
             <Link
               key={link.label}
               href={link.href}
-              className={`norma-focus w-fit hover:text-black ${
-                link.active ? "text-black underline underline-offset-8" : ""
+              className={`norma-focus w-fit py-1 transition-colors hover:text-black ${
+                link.active ? "border-b-2 border-black text-black" : ""
               }`}
               onClick={() => setOpen(false)}
               tabIndex={open ? 0 : -1}
@@ -71,16 +88,19 @@ export function MobileNavigation({
               {link.label}
             </Link>
           ))}
-          <Link
-            href={cta.href}
-            className="norma-focus mt-1 w-fit border-b border-black pb-2 text-black"
-            onClick={() => setOpen(false)}
-            tabIndex={open ? 0 : -1}
-          >
-            {cta.label}
-          </Link>
+          <div className="pt-4 border-t border-norma-rule">
+            <Link
+              href={cta.href}
+              className="norma-focus inline-block bg-norma-ink px-6 py-3 text-[11px] font-bold tracking-[0.16em] text-white"
+              onClick={() => setOpen(false)}
+              tabIndex={open ? 0 : -1}
+            >
+              {cta.label}
+            </Link>
+          </div>
         </nav>
       </div>
     </div>
   );
 }
+

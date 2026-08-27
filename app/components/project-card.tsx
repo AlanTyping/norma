@@ -25,14 +25,9 @@ export function ProjectCard({
   detail,
 }: ProjectCardProps) {
   const projectImage = image ?? project.image;
-  const projectHref =
-    project.slug === "casa-del-bosque"
-      ? "/proyectos"
-      : `/proyectos/${project.slug}`;
-  const projectLabel =
-    project.slug === "casa-del-bosque"
-      ? "Volver a la selección de proyectos"
-      : `Ver proyecto ${project.title}`;
+  const projectHref = `/proyectos/${project.slug}`;
+  const projectLabel = `Ver proyecto ${project.title}`;
+
 
   return (
     <figure className={`m-0 min-w-0 ${className}`}>

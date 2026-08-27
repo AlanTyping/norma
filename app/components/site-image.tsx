@@ -1,4 +1,4 @@
-/* eslint-disable @next/next/no-img-element */
+import Image from "next/image";
 
 import type { SiteImage as SiteImageData } from "../lib/types";
 
@@ -7,6 +7,7 @@ type SiteImageProps = {
   className?: string;
   sizes?: string;
   objectPosition?: string;
+  priority?: boolean;
 };
 
 export function SiteImage({
@@ -14,18 +15,21 @@ export function SiteImage({
   className = "",
   sizes,
   objectPosition = "center",
+  priority = false,
 }: SiteImageProps) {
   return (
-    <img
+    <Image
       src={image.src}
       alt={image.alt}
+      fill
       sizes={sizes ?? image.sizes ?? "100vw"}
-      loading="lazy"
-      decoding="async"
-      className={`norma-image absolute inset-0 h-full w-full object-cover ${
+      priority={priority}
+      quality={85}
+      className={`norma-image object-cover ${
         image.treatment === "grayscale" ? "grayscale" : ""
       } ${className}`}
       style={{ objectPosition }}
     />
   );
 }
+

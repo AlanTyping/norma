@@ -236,7 +236,136 @@ export const casaDelta: ProjectDetailData = {
     "Casa Delta emerge como una respuesta arquitectónica directa a las condiciones únicas de su entorno. Situada en un terreno inundable, la estructura se eleva sobre pilotes, permitiendo que el paisaje fluvial fluya libremente por debajo. Esta decisión no solo resuelve el desafío técnico, sino que establece un diálogo poético con el agua, transformándola en un elemento fundamental de la experiencia espacial.",
     "Los grandes ventanales de piso a techo desdibujan los límites entre el interior y el exterior, invitando a la naturaleza salvaje del delta a convertirse en el telón de fondo constante de la vida doméstica. La disposición de los volúmenes busca capturar las vistas panorámicas del río mientras mantiene la privacidad, creando un refugio de contemplación silenciosa.",
   ],
+  materiality: {
+    title: "Ingeniería Palafítica y Transparencia",
+    body: "Elevada sobre una estructura de perfiles metálicos y hormigón hidrófugo, Casa Delta resiste las crecidas del río con ligereza. El uso extensivo de vidrio termoacústico y maderas de guatambú genera un refugio náutico de gran calidez.",
+    image: images.facadeDetail,
+    features: [
+      {
+        title: "Pilotes de Acero",
+        body: "Elevación estructural ante crecidas del delta.",
+        motif: "structure",
+      },
+      {
+        title: "Vidrio de Control Solar",
+        body: "Aislamiento térmico y visuales panorámicas.",
+        motif: "light",
+      },
+      {
+        title: "Madera Fluvial",
+        body: "Revestimientos tratados contra la humedad.",
+        motif: "wood",
+      },
+    ],
+  },
+  gallery: [
+    {
+      image: images.staircase,
+      placement: "feature",
+    },
+    {
+      image: images.studioInterior,
+      placement: "left",
+      caption: "Espacio de estar continuo",
+    },
+    {
+      image: images.bathroom,
+      placement: "right",
+      caption: "Baño con luz cenital",
+    },
+  ],
+  testimonial: {
+    quote:
+      "Vivir sobre el agua requería una solución técnica que no perdiera la poesía del Delta. NØRMA logró exactamente ese equilibrio.",
+    author: "— Agustín V., Casa Delta",
+    cta: "¿Tenés un proyecto con desafíos de terreno? Hablemos.",
+  },
 };
+
+export const casaDelBosque: ProjectDetailData = {
+  slug: "casa-del-bosque",
+  title: "Casa del Bosque",
+  meta: {
+    typology: "Residencial",
+    location: "Valdivia, Chile",
+    area: "310 m²",
+    year: "2025",
+  },
+  hero: images.forestHouse,
+  description: [
+    "Ubicada en una ladera boscosa de la Patagonia, Casa del Bosque dialoga con la topografía escarpada y el clima húmedo del sur. La volumetría fragmentada en dos niveles se inserta respetando los árboles nativos preexistentes, minimizando el impacto sobre el suelo natural.",
+    "Las aberturas estratégicas capturan la luz cenital y las visuales hacia la copa de los árboles, mientras que la cubierta inclinada responde con solidez técnica a los altos regímenes de lluvia, fusionando la tradición constructiva local con líneas contemporáneas depuradas.",
+  ],
+  materiality: {
+    title: "Materia, Resguardo y Clima",
+    body: "La piel exterior combina madera termotratada con placas de acero corten, materiales que maduran con las estaciones. En el interior, los revoques a la cal y los pisos de roble reciclado generan una atmósfera de abrigo y silencio.",
+    image: images.material,
+    features: [
+      {
+        title: "Envolvente Térmica",
+        body: "Aislación bioclimática continua para clima lluvioso.",
+        motif: "structure",
+      },
+      {
+        title: "Lucernarios Cenitales",
+        body: "Ingreso de luz natural filtrada entre el follaje.",
+        motif: "light",
+      },
+      {
+        title: "Maderas Nativas",
+        body: "Alerce y roble certificado para interiores.",
+        motif: "wood",
+      },
+    ],
+  },
+  gallery: [
+    {
+      image: images.featuredHouse,
+      placement: "feature",
+    },
+    {
+      image: images.staircase,
+      placement: "left",
+      caption: "Escalera escultórica integrada a la estructura",
+    },
+    {
+      image: images.bathroom,
+      placement: "right",
+      caption: "Apertura visual hacia la vegetación",
+    },
+  ],
+  testimonial: {
+    quote:
+      "La integración con el entorno boscoso es total. En invierno la casa es un refugio cálido y en verano se abre completamente hacia los árboles.",
+    author: "— Joaquín y Camila, Propietarios",
+    cta: "¿Pensando en construir en un entorno natural? Conversemos.",
+  },
+};
+
+export const projectDetails: ProjectDetailData[] = [
+  casaOlivos,
+  estudio24,
+  casaDelta,
+  casaDelBosque,
+];
+
+export function getProjectBySlug(slug: string): ProjectDetailData | undefined {
+  return projectDetails.find((project) => project.slug === slug);
+}
+
+export function getAdjacentProjects(slug: string): {
+  prev: ProjectDetailData;
+  next: ProjectDetailData;
+} {
+  const index = projectDetails.findIndex((p) => p.slug === slug);
+  const currentIndex = index === -1 ? 0 : index;
+  const prevIndex = (currentIndex - 1 + projectDetails.length) % projectDetails.length;
+  const nextIndex = (currentIndex + 1) % projectDetails.length;
+  return {
+    prev: projectDetails[prevIndex],
+    next: projectDetails[nextIndex],
+  };
+}
 
 export const teamMembers: TeamMember[] = [
   {
@@ -267,3 +396,4 @@ export const additionalTeamMembers: TeamMember[] = [
 ];
 
 export { images };
+

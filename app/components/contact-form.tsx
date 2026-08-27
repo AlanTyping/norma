@@ -7,9 +7,18 @@ import type { ContactFormValues } from "../lib/types";
 type ContactErrors = Partial<Record<keyof ContactFormValues, string>>;
 type FormStatus = "idle" | "submitting" | "success";
 
+const projectTypes = [
+  "Residencial",
+  "Comercial",
+  "Reforma integral",
+  "Interiorismo",
+  "Consulta general",
+];
+
 const initialValues: ContactFormValues = {
   name: "",
   email: "",
+  projectType: "Residencial",
   message: "",
 };
 
@@ -55,40 +64,74 @@ export function ContactForm() {
     if (Object.keys(nextErrors).length > 0) return;
 
     setStatus("submitting");
-    window.setTimeout(() => setStatus("success"), 550);
+    window.setTimeout(() => setStatus("success"), 600);
   };
 
   if (status === "success") {
     return (
       <div
-        className="border-t border-norma-field pt-6"
+        className="border-t border-norma-field pt-8"
         role="status"
         aria-live="polite"
       >
-        <p className="font-editorial text-[clamp(2rem,3vw,3rem)] leading-none tracking-[-0.04em]">
-          Gracias por escribirnos.
+        <p className="font-editorial text-[clamp(2.4rem,3.4vw,3.4rem)] leading-none tracking-[-0.04em]">
+          Gracias por escribirnos, {values.name.split(" ")[0]}.
         </p>
         <p className="mt-4 text-[15px] leading-[1.7] text-norma-muted">
-          Recibimos tu mensaje y vamos a contactarte pronto.
+          Recibimos tu consulta para un proyecto de tipo{" "}
+          <strong className="text-norma-ink">{values.projectType}</strong>. Nuestro equipo se pondrá en contacto a{" "}
+          <strong className="text-norma-ink">{values.email}</strong> en las próximas 24 horas hábiles.
         </p>
-        <button
-          type="button"
-          className="norma-link norma-focus mt-8 text-[11px] font-semibold uppercase tracking-[0.14em]"
-          onClick={() => {
-            setValues(initialValues);
-            setErrors({});
-            setTouched({});
-            setStatus("idle");
-          }}
-        >
-          Enviar otro mensaje
-        </button>
+        <div className="mt-6 inline-flex items-center gap-2 rounded-sm bg-norma-soft px-3.5 py-2 text-[11px] text-norma-muted">
+          <span>✓</span>
+          <span>Demostración de flujo completada exitosamente</span>
+        </div>
+        <div className="mt-8">
+          <button
+            type="button"
+            className="norma-link norma-focus text-[11px] font-semibold uppercase tracking-[0.14em]"
+            onClick={() => {
+              setValues(initialValues);
+              setErrors({});
+              setTouched({});
+              setStatus("idle");
+            }}
+          >
+            Enviar otra consulta
+          </button>
+        </div>
       </div>
     );
   }
 
   return (
     <form className="max-w-[650px]" onSubmit={handleSubmit} noValidate>
+      {/* Project Type Chips */}
+      <div className="mb-8">
+        <label className="block text-[11px] font-bold tracking-[0.16em] uppercase text-norma-ink">
+          Tipo de Proyecto
+        </label>
+        <div className="mt-3 flex flex-wrap gap-2">
+          {projectTypes.map((type) => {
+            const selected = values.projectType === type;
+            return (
+              <button
+                key={type}
+                type="button"
+                onClick={() => updateField("projectType", type)}
+                className={`norma-focus border px-3.5 py-1.5 text-[11px] font-medium transition-colors ${
+                  selected
+                    ? "border-norma-ink bg-norma-ink text-white"
+                    : "border-norma-rule bg-transparent text-norma-muted hover:border-norma-ink hover:text-norma-ink"
+                }`}
+              >
+                {type}
+              </button>
+            );
+          })}
+        </div>
+      </div>
+
       {(
         [
           { field: "name", label: "NOMBRE", placeholder: "Tu nombre", type: "text" },
@@ -102,7 +145,7 @@ export function ContactForm() {
           <label
             key={input.field}
             htmlFor={input.field}
-            className="mt-9 block border-b border-norma-field pb-3 first:mt-0"
+            className="mt-8 block border-b border-norma-field pb-3 first:mt-0"
           >
             <span className="block text-[11px] font-bold tracking-[0.16em]">
               {input.label}
@@ -129,18 +172,19 @@ export function ContactForm() {
           </label>
         );
       })}
-      <label htmlFor="message" className="mt-9 block border-b border-norma-field pb-3">
+
+      <label htmlFor="message" className="mt-8 block border-b border-norma-field pb-3">
         <span className="block text-[11px] font-bold tracking-[0.16em]">MENSAJE</span>
         <textarea
           id="message"
           name="message"
           value={values.message}
-          placeholder="Contanos brevemente sobre tu proyecto..."
+          placeholder="Contanos sobre la ubicación, m² estimados o ideas de tu proyecto..."
           required
-          rows={4}
+          rows={3}
           aria-invalid={Boolean(touched.message && errors.message)}
           aria-describedby={touched.message && errors.message ? "message-error" : undefined}
-          className="norma-field norma-focus mt-2 min-h-[110px] w-full resize-none border-0 bg-transparent p-0 text-[18px] outline-hidden"
+          className="norma-field norma-focus mt-2 min-h-[90px] w-full resize-none border-0 bg-transparent p-0 text-[18px] outline-hidden"
           onChange={(event) => updateField("message", event.target.value)}
           onBlur={() => handleBlur("message")}
         />
@@ -150,13 +194,20 @@ export function ContactForm() {
           </span>
         ) : null}
       </label>
-      <button
-        type="submit"
-        disabled={status === "submitting"}
-        className="norma-focus mt-10 bg-norma-ink px-8 py-4 text-[11px] font-bold uppercase tracking-[0.13em] text-white transition-colors duration-200 hover:bg-norma-muted disabled:cursor-wait disabled:opacity-60"
-      >
-        {status === "submitting" ? "Enviando..." : "Enviar mensaje"}
-      </button>
+
+      <div className="mt-10 flex flex-wrap items-center gap-6">
+        <button
+          type="submit"
+          disabled={status === "submitting"}
+          className="norma-focus bg-norma-ink px-8 py-4 text-[11px] font-bold uppercase tracking-[0.13em] text-white transition-colors duration-200 hover:bg-norma-muted disabled:cursor-wait disabled:opacity-60"
+        >
+          {status === "submitting" ? "Enviando..." : "Enviar mensaje"}
+        </button>
+        <span className="text-[11px] text-norma-muted">
+          Respuesta habitual en &lt; 24hs
+        </span>
+      </div>
     </form>
   );
 }
+

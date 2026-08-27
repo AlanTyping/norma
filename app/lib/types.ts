@@ -86,5 +86,6 @@ export interface TeamMember {
 export interface ContactFormValues {
   name: string;
   email: string;
+  projectType: string;
   message: string;
 }

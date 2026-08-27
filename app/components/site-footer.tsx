@@ -5,12 +5,13 @@ const socialLinks = [
   { label: "LinkedIn", href: "https://linkedin.com" },
   { label: "Behance", href: "https://behance.net" },
 ];
-const legalLinks = ["Privacidad", "Aviso Legal"];
 
 export function SiteFooter() {
+  const currentYear = new Date().getFullYear();
+
   return (
     <footer className="border-t border-norma-rule bg-norma-footer px-6 py-14 md:px-10 md:py-20 lg:px-14">
-      <div className="mx-auto grid max-w-[1320px] gap-12 md:grid-cols-[1.35fr_0.7fr_0.7fr] md:gap-10">
+      <div className="mx-auto grid max-w-[1320px] gap-12 md:grid-cols-[1.5fr_0.75fr_0.75fr] md:gap-10">
         <div>
           <Link
             href="/"
@@ -18,8 +19,11 @@ export function SiteFooter() {
           >
             NØRMA
           </Link>
-          <p className="mt-6 max-w-[270px] text-[11px] leading-[1.6] text-norma-muted">
-            © 2024 NØRMA Arquitectura. Todos los derechos reservados.
+          <p className="mt-4 max-w-[320px] text-[12px] leading-[1.6] text-norma-muted">
+            Estudio conceptual de arquitectura contemporánea. Proyecto de demostración desarrollado con Next.js y Tailwind CSS.
+          </p>
+          <p className="mt-4 text-[11px] text-norma-muted/80">
+            © {currentYear} NØRMA Arquitectura. Todos los derechos reservados.
           </p>
         </div>
         <div>
@@ -38,27 +42,30 @@ export function SiteFooter() {
                 rel="noreferrer"
                 className="norma-link norma-focus"
               >
-                {link.label}
+                {link.label} ↗
               </a>
             ))}
           </nav>
         </div>
         <div>
           <p className="text-[9px] font-semibold uppercase tracking-[0.22em]">
-            Legal
+            Estudio
           </p>
-          <nav
-            aria-label="Enlaces legales"
-            className="mt-6 flex flex-col items-start gap-3 text-[12px] text-norma-muted"
-          >
-            {legalLinks.map((label) => (
-              <Link key={label} href="#" className="norma-link norma-focus">
-                {label}
-              </Link>
-            ))}
-          </nav>
+          <div className="mt-6 flex flex-col items-start gap-2 text-[12px] text-norma-muted">
+            <p className="m-0">San Isidro, Buenos Aires</p>
+            <a
+              href="mailto:contacto@norma.ar"
+              className="norma-link norma-focus text-norma-ink font-medium"
+            >
+              contacto@norma.ar
+            </a>
+            <p className="m-0 mt-2 text-[11px] text-norma-muted/70">
+              Lun – Vie: 09:00 — 18:00
+            </p>
+          </div>
         </div>
       </div>
     </footer>
   );
 }
+

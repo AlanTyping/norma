@@ -17,13 +17,51 @@ const sans = DM_Sans({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://norma-arquitectura.vercel.app"),
   title: {
-    default: "NØRMA Arquitectura",
+    default: "NØRMA Arquitectura — Estudio de Arquitectura Contemporánea",
     template: "%s — NØRMA Arquitectura",
   },
   description:
-    "NØRMA es un estudio de arquitectura contemporánea con base en San Isidro.",
+    "NØRMA es un estudio de arquitectura contemporánea con base en San Isidro. Desarrollamos proyectos residenciales y comerciales basados en la proporción, la luz y la materia.",
+  keywords: [
+    "arquitectura contemporánea",
+    "estudio de arquitectura",
+    "diseño residencial",
+    "arquitectura buenos aires",
+    "san isidro",
+    "interiorismo",
+  ],
+  authors: [{ name: "NØRMA Arquitectura" }],
+  openGraph: {
+    title: "NØRMA Arquitectura — Estudio de Arquitectura Contemporánea",
+    description:
+      "Arquitectura contemporánea pensada para vivir. Proyectos residenciales y comerciales con atención obsesiva al detalle constructivo.",
+    url: "https://norma-arquitectura.vercel.app",
+    siteName: "NØRMA Arquitectura",
+    locale: "es_AR",
+    type: "website",
+    images: [
+      {
+        url: "/hero.jpg",
+        width: 1920,
+        height: 1080,
+        alt: "NØRMA Arquitectura",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "NØRMA Arquitectura",
+    description: "Arquitectura contemporánea pensada para vivir.",
+    images: ["/hero.jpg"],
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
 };
+
 
 export default function RootLayout({
   children,
